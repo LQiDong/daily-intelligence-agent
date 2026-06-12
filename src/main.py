@@ -5,7 +5,7 @@ from loguru import logger
 from src.collect import NewsCollector
 from src.config import get_settings
 from src.generate import ReportGenerator
-from src.process import NewsProcessor
+from src.process import NewsProcessor, ProcessResult
 from src.send import EmailSender
 from src.utils import setup_logger
 
@@ -27,8 +27,8 @@ def main() -> None:
     sender = EmailSender()
 
     raw_news = collector.collect()
-    articles = processor.process(raw_news)
-    report = generator.generate(articles)
+    result: ProcessResult = processor.process(raw_news)
+    report = generator.generate(result)
     if report:
         sender.send(report)
 

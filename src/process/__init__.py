@@ -1,3 +1,3 @@
-from .processor import NewsProcessor
+from .processor import NewsProcessor, ProcessResult
 
-__all__ = ["NewsProcessor"]
+__all__ = ["NewsProcessor", "ProcessResult"]
