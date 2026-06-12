@@ -47,7 +47,7 @@ class TestReportContext:
     def test_build_context_minimal(self):
         """Build context with empty result."""
         result = ProcessResult(
-            all_articles=[], top_global=[], tech_top=[], finance_top=[], ai_top=[], general_top=[]
+            all_articles=[], top_global=[], tech_top=[], finance_top=[], ai_top=[], pm_top=[], general_top=[]
         )
         ctx = build_report_context(result)
         assert ctx["date"] is not None
@@ -68,6 +68,7 @@ class TestReportContext:
             tech_top=[articles[1]],
             ai_top=[articles[0]],
             finance_top=[articles[2]],
+            pm_top=[],
             general_top=[],
         )
         ctx = build_report_context(result)

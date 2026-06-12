@@ -144,6 +144,7 @@ def _build_toc_html(ctx: dict) -> str:
         "ai": "AI 模块",
         "tech": "科技模块",
         "finance": "金融模块",
+        "pm": "产品经理模块",
     }
     for key, label in anchors.items():
         if ctx.get(key):
@@ -160,6 +161,7 @@ def _build_all_sections(ctx: dict) -> str:
     sections += _build_section_html("🤖 AI 模块", "ai", ctx.get("ai", []), ctx)
     sections += _build_section_html("💻 科技模块", "tech", ctx.get("tech", []), ctx)
     sections += _build_section_html("💰 金融模块", "finance", ctx.get("finance", []), ctx)
+    sections += _build_section_html("📱 产品经理模块", "pm", ctx.get("pm", []), ctx)
     return sections
 
 
@@ -238,7 +240,7 @@ def _build_follow_up_html(ctx: dict) -> str:
     if not has_any:
         return ""
 
-    module_labels = {"ai": "🤖 AI", "tech": "💻 科技", "finance": "💰 金融"}
+    module_labels = {"ai": "🤖 AI", "tech": "💻 科技", "finance": "💰 金融", "pm": "📱 产品经理"}
     modules_html = ""
     for key, label in module_labels.items():
         points = follow_up.get(key, [])

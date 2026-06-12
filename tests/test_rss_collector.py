@@ -20,7 +20,7 @@ class TestRSSCollector:
             _make_entry(
                 title="AI Breakthrough",
                 link="https://example.com/ai",
-                published_parsed=(2026, 6, 10, 12, 0, 0, 2, 161, 0),
+                published_parsed=(2026, 6, 11, 12, 0, 0, 3, 162, 0),
                 summary="An AI breakthrough article.",
                 tags=[],
                 author="Author A",
@@ -28,7 +28,7 @@ class TestRSSCollector:
             _make_entry(
                 title="Tech News",
                 link="https://example.com/tech",
-                published_parsed=(2026, 6, 9, 8, 0, 0, 1, 160, 0),
+                published_parsed=(2026, 6, 10, 8, 0, 0, 2, 161, 0),
                 summary="Latest tech news.",
                 tags=[{"term": "Technology"}],
                 author="Author B",

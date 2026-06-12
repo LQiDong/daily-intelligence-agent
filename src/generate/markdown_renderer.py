@@ -18,6 +18,7 @@ def render_markdown(ctx: dict) -> str:
     _add_section(lines, "🤖 AI 模块", ctx.get("ai", []), ctx["date"])
     _add_section(lines, "💻 科技模块", ctx.get("tech", []), ctx["date"])
     _add_section(lines, "💰 金融模块", ctx.get("finance", []), ctx["date"])
+    _add_section(lines, "📱 产品经理模块", ctx.get("pm", []), ctx["date"])
     _add_trends(lines, ctx)
     _add_follow_up(lines, ctx)
     _add_footer(lines, ctx)
@@ -42,7 +43,7 @@ def _add_toc(lines: list[str], ctx: dict) -> None:
     sections = []
     if ctx.get("top_global"):
         sections.append("[🔥 今日最重要](#-今日最重要)")
-    for label, key in [("🤖 AI 模块", "ai"), ("💻 科技模块", "tech"), ("💰 金融模块", "finance")]:
+    for label, key in [("🤖 AI 模块", "ai"), ("💻 科技模块", "tech"), ("💰 金融模块", "finance"), ("📱 产品经理模块", "pm")]:
         if ctx.get(key):
             slug = label.split(" ")[1]
             sections.append(f"[{label}](#-{slug}模块)")
@@ -142,7 +143,7 @@ def _add_follow_up(lines: list[str], ctx: dict) -> None:
         lines.append("")
         return
 
-    module_labels = {"ai": "AI", "tech": "科技", "finance": "金融"}
+    module_labels = {"ai": "AI", "tech": "科技", "finance": "金融", "pm": "产品经理"}
     for key, label in module_labels.items():
         points = follow_up.get(key, [])
         if points:

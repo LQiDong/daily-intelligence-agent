@@ -113,7 +113,7 @@ class Scorer:
     @staticmethod
     def _score_relevance(article: Article) -> float:
         """Score 0-100 based on keyword density matched to the assigned category."""
-        from .classifier import _AI_KEYWORDS, _TECH_KEYWORDS, _FINANCE_KEYWORDS, _keyword_in_text
+        from .classifier import _AI_KEYWORDS, _TECH_KEYWORDS, _FINANCE_KEYWORDS, _PM_KEYWORDS, _keyword_in_text
 
         text = f"{article.title} {article.summary}".lower()
 
@@ -121,6 +121,7 @@ class Scorer:
             "ai": _AI_KEYWORDS,
             "tech": _TECH_KEYWORDS,
             "finance": _FINANCE_KEYWORDS,
+            "pm": _PM_KEYWORDS,
         }
 
         keywords = category_keywords.get(article.category, set())

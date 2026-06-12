@@ -24,6 +24,7 @@ class ProcessResult:
         tech_top: list[Article],
         finance_top: list[Article],
         ai_top: list[Article],
+        pm_top: list[Article],
         general_top: list[Article],
     ) -> None:
         self.all_articles = all_articles
@@ -31,6 +32,7 @@ class ProcessResult:
         self.tech_top = tech_top
         self.finance_top = finance_top
         self.ai_top = ai_top
+        self.pm_top = pm_top
         self.general_top = general_top
 
     @property
@@ -39,6 +41,7 @@ class ProcessResult:
             "ai": self.ai_top,
             "tech": self.tech_top,
             "finance": self.finance_top,
+            "pm": self.pm_top,
         }
 
     def to_flat_list(self) -> list[Article]:
@@ -91,6 +94,7 @@ class NewsProcessor:
             f"Pipeline complete: tech={len(result.tech_top)}, "
             f"finance={len(result.finance_top)}, "
             f"ai={len(result.ai_top)}, "
+            f"pm={len(result.pm_top)}, "
             f"global_top={len(result.top_global)}"
         )
         return result
@@ -109,7 +113,7 @@ class NewsProcessor:
             art.is_global_top = True
 
         # Per-module top N
-        categories = {"ai": [], "tech": [], "finance": [], "general": []}
+        categories = {"ai": [], "tech": [], "finance": [], "pm": [], "general": []}
         for a in articles:
             cat = a.category if a.category in categories else "general"
             categories[cat].append(a)
@@ -125,5 +129,6 @@ class NewsProcessor:
             tech_top=categories["tech"][:top_per_module],
             finance_top=categories["finance"][:top_per_module],
             ai_top=categories["ai"][:top_per_module],
+            pm_top=categories["pm"][:top_per_module],
             general_top=categories["general"][:top_per_module],
         )

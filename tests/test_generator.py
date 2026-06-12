@@ -34,6 +34,7 @@ class TestReportGenerator:
             tech_top=[],
             finance_top=[],
             ai_top=[],
+            pm_top=[],
             general_top=[],
         )
         generator = ReportGenerator(output_dir=str(tmp_path))
@@ -61,6 +62,7 @@ class TestReportGenerator:
             tech_top=[articles[1]],
             ai_top=[articles[0]],
             finance_top=[articles[2]],
+            pm_top=[],
             general_top=[],
         )
         generator = ReportGenerator(output_dir=str(tmp_path))

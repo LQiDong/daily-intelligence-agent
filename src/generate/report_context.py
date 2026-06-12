@@ -41,6 +41,7 @@ def build_report_context(result: ProcessResult) -> dict:
         "ai": [_article_to_dict(a) for a in result.ai_top],
         "tech": [_article_to_dict(a) for a in result.tech_top],
         "finance": [_article_to_dict(a) for a in result.finance_top],
+        "pm": [_article_to_dict(a) for a in result.pm_top],
         "general": [_article_to_dict(a) for a in result.general_top],
     }
 
@@ -51,11 +52,13 @@ def build_report_context(result: ProcessResult) -> dict:
         "ai": _collect_follow_ups(result.ai_top),
         "tech": _collect_follow_ups(result.tech_top),
         "finance": _collect_follow_ups(result.finance_top),
+        "pm": _collect_follow_ups(result.pm_top),
     }
 
     logger.info(
         f"Report context built: {len(ctx['top_global'])} top, "
-        f"ai={len(ctx['ai'])}, tech={len(ctx['tech'])}, finance={len(ctx['finance'])}"
+        f"ai={len(ctx['ai'])}, tech={len(ctx['tech'])}, "
+        f"finance={len(ctx['finance'])}, pm={len(ctx['pm'])}"
     )
     return ctx
 
@@ -117,7 +120,7 @@ def _build_trend_summary(ctx: dict, now: datetime) -> str:
 
     # Category distribution
     counts = {}
-    for cat in ["ai", "tech", "finance", "general"]:
+    for cat in ["ai", "tech", "finance", "pm", "general"]:
         counts[cat] = len(ctx.get(cat, []))
 
     if counts.get("ai", 0) > 0:
@@ -126,10 +129,12 @@ def _build_trend_summary(ctx: dict, now: datetime) -> str:
         parts.append(f"科技领域 {counts['tech']} 条重点新闻")
     if counts.get("finance", 0) > 0:
         parts.append(f"金融领域 {counts['finance']} 条重点新闻")
+    if counts.get("pm", 0) > 0:
+        parts.append(f"产品经理领域 {counts['pm']} 条重点新闻")
 
     # Try to extract a common theme from AI analysis
     themes = set()
-    for cat in ["ai", "tech", "finance"]:
+    for cat in ["ai", "tech", "finance", "pm"]:
         for art in ctx.get(cat, []):
             sentence = art.get("analysis_one_sentence", "")
             if sentence and not art.get("analysis_insufficient", True):
@@ -145,7 +150,7 @@ def _build_trends(ctx: dict) -> list[str]:
     trends: list[str] = []
     seen = set()
 
-    for cat in ["ai", "tech", "finance"]:
+    for cat in ["ai", "tech", "finance", "pm"]:
         for art in ctx.get(cat, []):
             for impact in art.get("analysis_impact", []):
                 key = impact.strip()[:30]
